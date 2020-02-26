@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<%- include navbar %>
+
+<link rel="stylesheet" type="text/css" href="/public/site/css/smdr-tool.css" />
+<script src="/smdr/js/smdr-tool.js"></script>
+
+<div class="container-fluid">
+	<% if (userPermissions.smdrTool) { %>
+		<title>Ray's NEC Toolkit: SMDR Tool</title>
+			<div class="row">	
+				<div class="col-sm wrapper-background margin-sides-35">
+					<div class="row site-primary">
+						<h1>SMDR Tool - Detailed Record Information</h1>
+					</div>
+					<div class="row">	
+						<div class="col-10 col-offset-1">
+							<div class="row">
+								<div class="col">
+									<button class="btn btn-site" id="back-button"><i class="fas fa-arrow-left fa-3x"></i></button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<span><strong>Record Type:</strong> <%= smdrDocument.RecordType %></span>
+								</div>
+								<div class="col d-none d-lg-table-cell"">
+									<span><strong>Raw SMDR:</strong> <%= smdrDocument.RawSMDR %></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<% if(smdrDocument.CallTime.Start.hasOwnProperty(`TimeStamp`)) { %>
+										<td class="d-none d-md-table-cell"><span><strong>Start Time:</strong> <%= smdrDocument.CallTime.Start.TimeStamp.toLocaleDateString() + ` ` + smdrDocument.CallTime.Start.TimeStamp.toLocaleTimeString() %></td>
+									<% } else { %>
+										<td class="d-none d-md-table-cell"><span><strong>Start Time:</strong> <%= smdrDocument.CallTime.Start.Month + `-` + smdrDocument.CallTime.Start.Day + `-` + smdrDocument.CallTime.Start.Year + ` ` + smdrDocument.CallTime.Start.Hour + `:` + smdrDocument.CallTime.Start.Minute + `:` + smdrDocument.CallTime.Start.Second %></td>
+									<% } %>
+								</div>
+								<div class="col">
+									<% if(smdrDocument.CallTime.End.hasOwnProperty(`TimeStamp`)) { %>
+										<td class="d-none d-md-table-cell"><span><strong>End Time:</strong> <%= smdrDocument.CallTime.End.TimeStamp.toLocaleDateString() + ` ` + smdrDocument.CallTime.End.TimeStamp.toLocaleTimeString()  %></td>
+									<% } else { %>
+										<td class="d-none d-md-table-cell"><span><strong>End Time:</strong> <%= smdrDocument.CallTime.End.Month + `-` + smdrDocument.CallTime.End.Day + `-` + smdrDocument.CallTime.End.Year + ` ` + smdrDocument.CallTime.End.Hour + `:` + smdrDocument.CallTime.End.Minute + `:` + smdrDocument.CallTime.End.Second %></td>
+									<% } %>
+								</div>
+								<div class="col">
+									<% if(smdrDocument.CallTime.Duration.hasOwnProperty(`Milliseconds`)) { %>
+										<% var seconds = smdrDocument.CallTime.Duration.Milliseconds / 1000 %>
+										<% var hours = parseInt( seconds / 3600 ) %>
+										<% seconds = seconds % 3600 %>
+										<% minutes = parseInt( seconds / 60 ) %>
+										<% seconds = seconds % 60 %>
+										<td class="d-none d-md-table-cell"><span><strong>Duration:</strong> <%= hours %>:<%= minutes %>:<%= seconds %></td>
+									<% } %>
+								</div>
+							</div>
+							<div class="row">
+								<% if(smdrDocument.ConditionCodes.hasOwnProperty(`ConditionB`)) { %>
+										<% if(smdrDocument.ConditionCodes.ConditionB.hasOwnProperty(`ConditionCodeZero`)) { %>
+											<div class="col">
+												<td class="d-none d-md-table-cell"><span><strong>Condition Code Zero:</strong> <%= smdrDocument.ConditionCodes.ConditionB.ConditionCodeZero %></td>
+											</div>
+										<% } %>
+										<% if(smdrDocument.ConditionCodes.ConditionB.hasOwnProperty(`ConditionCodeOne`)) { %>
+											<div class="col">
+												<td class="d-none d-md-table-cell"><span><strong>Condition Code One:</strong> <%= smdrDocument.ConditionCodes.ConditionB.ConditionCodeOne %></td>
+											</div>
+										<% } %>
+										<% if(smdrDocument.ConditionCodes.ConditionB.hasOwnProperty(`ConditionCodeTwo`)) { %>
+											<div class="col">
+												<td class="d-none d-md-table-cell"><span><strong>Condition Code Two:</strong> <%= smdrDocument.ConditionCodes.ConditionB.ConditionCodeTwo %></td>
+											</div>
+										<% } %>
+								<% } %>
+							</div>
+							<div class="row">
+								<% if(smdrDocument.AccountCode.hasOwnProperty(`AccountCode`)){ %>
+									<% if(smdrDocument.AccountCode.AccountCode.replace(/\s/g,``).length){ %>
+										<div class="col">
+											<span><strong>Account Code:</strong> <%= smdrDocument.AccountCode.AccountCode %></span>
+										</div>
+									<% } %>
+								<% } %>	
+								<%if(smdrDocument.AuthorizationCode.hasOwnProperty(`AuthorizationCode`)){ %>
+									<% if(smdrDocument.AuthorizationCode.AuthorizationCode.replace(/\s/g,``).length){ %>
+										<div class="col">
+										<span><strong>Authorization Code:</strong> <%= smdrDocument.AuthorizationCode.AuthorizationCode %></span>
+									</div>
+									<% } %>	
+								<% } %>	
+							</div>
+							<div class="row">
+								<%if(smdrDocument.CallingPartyInformation.PhysicalNumber.hasOwnProperty(`CallingNumber`)){ %>
+									<div class="col">
+										<!--span><strong>Calling Party Identification:</strong> <%= smdrDocument.CallingPartyInformation.PhysicalNumber.CallingPartyIdentification %></span><br /-->
+										<span><strong>Calling Party Tenant:</strong> <%= parseInt(smdrDocument.CallingPartyInformation.PhysicalNumber.CallingPartyTenant) %></span><br />
+										<span><strong>Calling Party Number:</strong> <%= smdrDocument.CallingPartyInformation.PhysicalNumber.CallingNumber %></span><br />
+									</div>
+								<% } %>
+								<%if(smdrDocument.CallingPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)){ %>
+									<div class="col">
+										<span><strong>Fusion Point Code:</strong> <%= parseInt(smdrDocument.CallingPartyInformation.TelephoneNumber.FusionPointCode) %></span><br />
+										<span><strong>User Group Number:</strong> <%= parseInt(smdrDocument.CallingPartyInformation.TelephoneNumber.FusionUserGroupNumber) %></span><br />
+										<span><strong>Tel Number:</strong> <%= smdrDocument.CallingPartyInformation.TelephoneNumber.LogicalNumber %></span><br />
+									</div>
+								<% } %>
+								<%if(smdrDocument.CallingStationNumber.hasOwnProperty(`CallingPartyNumber`)){ %>
+									<div class="col">
+										<span><strong>Calling Party Number:</strong> <%= smdrDocument.CallingStationNumber.CallingPartyNumber %></span><br />
+									</div>
+								<% } %>
+								<%if(smdrDocument.CalledPartyInformation.PhysicalNumber.hasOwnProperty(`CalledNumber`)){ %>
+									<div class="col">
+										<%if(smdrDocument.CalledPartyInformation.PhysicalNumber.hasOwnProperty(`CalledPartyTenant`)){ %>
+											<span><strong>Called Party Tenant:</strong> <%= smdrDocument.CalledPartyInformation.PhysicalNumber.CalledPartyTenant %></span><br />
+										<% } %>
+										<span><strong>Called Party Number:</strong> <%= smdrDocument.CalledPartyInformation.PhysicalNumber.CalledNumber %></span><br />
+									</div>
+									<%if(smdrDocument.CalledPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)){ %>
+									<div class="col">
+										<span><strong>Fusion Point Code:</strong> <%= parseInt(smdrDocument.CalledPartyInformation.TelephoneNumber.FusionPointCode) %></span><br />
+										<span><strong>User Group Number:</strong> <%= parseInt(smdrDocument.CalledPartyInformation.TelephoneNumber.FusionUserGroupNumber) %></span><br />
+										<span><strong>Tel Number:</strong> <%= smdrDocument.CalledPartyInformation.TelephoneNumber.LogicalNumber %></span><br />
+									</div>
+								<% } %>
+								<% } else if(smdrDocument.DialCode.hasOwnProperty(`DialCode`)){ %>
+									<div class="col">
+										<span><strong>Called Party Number:</strong> <%= smdrDocument.DialCode.DialCode %></span><br />
+									</div>
+								<% } %>
+							</div>
+							<div class="row">
+								<%if(smdrDocument.OutgoingTrunk.hasOwnProperty(`TrunkNumber`)){ %>
+									<div class="col">
+										<span><strong>Outgoing Route Number:</strong> <%= smdrDocument.OutgoingTrunk.PhysicalOutgoingRouteNumber %></span><br />
+										<span><strong>Outgoing Trunk Number:</strong> <%= smdrDocument.OutgoingTrunk.TrunkNumber %></span><br />
+										<%if(smdrDocument.OutgoingTrunk.hasOwnProperty(`LogicalOutgoingRouteNumber`)){ %>
+											<span><strong>Logical Outgoing Route Number:</strong> <%= smdrDocument.OutgoingTrunk.LogicalOutgoingRouteNumber %></span><br />
+										<% } %>
+									</div>
+								<% } %>	
+								<%if(smdrDocument.IncomingTrunk.hasOwnProperty(`TrunkNumber`)){ %>
+									<div class="col">
+										<span><strong>Incoming Route Number:</strong> <%= smdrDocument.IncomingTrunk.PhysicalIncomingRouteNumber %></span><br />
+										<span><strong>Incoming Trunk Number:</strong> <%= smdrDocument.IncomingTrunk.TrunkNumber %></span><br />
+										<%if(smdrDocument.IncomingTrunk.hasOwnProperty(`LogicalIncomingRouteNumber`)){ %>
+											<span><strong>Logical Incoming Route Number:</strong> <%= smdrDocument.IncomingTrunk.LogicalIncomingRouteNumber %></span><br />
+										<% } %>
+									</div>
+								<% } %>	
+							</div>
+							<div class="row">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<% } else { %>
+		<title>Ray's NEC Toolkit: Unauthorized Access</title>
+	<% } %>
+</div>
+
+<%- include footer %>

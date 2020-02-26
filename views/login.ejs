@@ -1,0 +1,38 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<%- include navbar %>
+<div class="container-fluid">
+	<title>raymondrizzo.com - login</title>
+	<div class="col wrapper-background">
+		<div class="row site-primary">
+			<h1>Sign In</h1>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p class="margin-10 text-center">Confidential System: Unauthorized access is forbidden</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 offset-md-3 wrapper-background">
+				<form action="/login" method="post">
+					<div class="row padding-10">
+						<label for="username">Email Address</label>
+						<input type="text" name="username" class="form-control btn-site" />	
+					</div>
+					<div class="row padding-10">
+						<label for="password">Password</label>
+						<input type="password" name="password" class="form-control btn-site"  />	
+					</div>
+					<div class="row padding-10">
+						<input type="submit" value="Login" class="btn btn-primary btn-block">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+		</div>
+	</div>
+</div>
+
+<%- include footer %>
+

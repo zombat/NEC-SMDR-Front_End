@@ -1,0 +1,38 @@
+.body{
+	
+}
+
+#smdr-area {
+	max-height: 800px;
+}
+
+@media only screen and (min-width: 1080px) {
+	#tableDiv {
+		overflow: auto;
+	}
+}
+
+@media only screen and (max-width: 959px) {
+	#tableDiv {
+		overflow: none;
+	}
+}
+#tableDiv {
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+}
+.smdr-record {
+	border-bottom: 1px solid #3c3c3c;
+	padding: 5px;
+}
+
+.smdr-section {
+	padding: 4px;
+	border-right: 1px solid #3c3c3c;
+	
+}
+
+.cellpadding-10 {
+	cellpadding: 10;
+}

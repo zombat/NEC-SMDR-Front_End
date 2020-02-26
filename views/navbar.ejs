@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous" />
+<!--link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.min.css" / -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+<!-- link rel="stylesheet" href="/public/fontawesome/css/all.css" / -->
+
+<link rel="stylesheet" type="text/css" href="/public/site/css/site.css" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- script src="/public/jquery/jquery-3.4.1.min.js"></script-->
+
+<script src="/public/site/js/site.js"></script-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+<!-- script defer src="/public/fontawesome/js/all.js"></script -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha256-OUFW7hFO0/r5aEGTQOz9F/aXQOt+TwqI1Z4fbVvww04=" crossorigin="anonymous"></script>
+<!-- script src="/public/bootstrap/js/bootstrap.bundle.min.js"></script -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<div class="container-fluid">
+	<div id="nav-bar" class="nav-bar site-primary">
+		<div class="row">
+			
+			<% if (user) { %>
+			<% } %>
+			<div class="col-sm">
+				<% if (user) { %>
+					<a href="/logout" class="float-right nav-bar-item" title="Sign Out" id="nav-logout"><i class="fas fa-2x fa-sign-out-alt" aria-hidden="true"></i></a>
+					<% if (userPermissions.sysadmin) { %>
+						<a href="/system-administration" class="float-right nav-bar-item" title="System Administration" id="nav-directory"><i class="fas fa-2x fa-tools" aria-hidden="true"></i></a>
+					<% } %>
+					<a href="/user-settings" class="float-right nav-bar-item" title="User Settings" id="nav-settings"><i class="fas fa-2x fa-users-cog" aria-hidden="true"></i></a>
+					<a href="/smdr" class="float-right nav-bar-item" title="SMDR Tool" id="db-bulk-in"><i class="fas fa-2x fa-phone" aria-hidden="true"></i></a>
+				<% } else { %>
+					<a href="/login" class="float-right nav-bar-item" title="Sign in" id="nav-login"><i class="fa fa-2x fa-sign-in-alt" aria-hidden="true"></i></a>
+				<% } %>
+				<a href="/" class="float-right nav-bar-item" title="Home" id="nav-home"><i class="fas fa-2x fa-home" aria-hidden="true"></i></a>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div id="nav-text"></div>
+	</div>
+</div>
+<% if (user) { %>
+<% } %>

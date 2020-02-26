@@ -1,0 +1,64 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<%- include navbar %>
+<script src="system-administration/js/system-administration.js"></script>
+<div id="wait-overlay" class="rounded d-none"><i class="fas fa-cog fa-10x fa-spin"></i></div>
+<div class="container-fluid">
+	<% if (userPermissions.sysadmin) { %>
+		<title>Ray's NEC Toolkit: System Administration</title>
+		<div class="col-sm wrapper-background">
+			<div class="row site-primary">
+				<h1>System Administration</h1>
+			</div>
+			<div class="row">	
+				<div class="col-3-lg">
+					<select class="control-label rounded margin-10 btn-site" id="system-adminsitration-user-list" size="32">
+						<!-- Keep empty -->
+					</select>
+				</div>
+				<div class="col margin-20">
+					<div class="row">
+						<label for="system-adminsitration-user-first-name">First Name</label> 
+						<input class="form-control btn-site" rows="1" type="text" id="system-adminsitration-user-first-name" data-lpignore="true"></input>
+						<label for="system-adminsitration-user-last-name">Last Name</label>
+						<input class="form-control btn-site" rows="1" type="text" id="system-adminsitration-user-last-name" data-lpignore="true"></input>
+						<label for="system-adminsitration-user-phone">Phone Number</label>
+						<input class="form-control btn-site" rows="1" type="tel" id="system-adminsitration-user-phone" data-lpignore="true"></input>
+						<label for="system-adminsitration-user-address">Address</label>
+						<input class="form-control btn-site" rows="1" type="text" id="system-adminsitration-user-address" data-lpignore="true"></input>
+						<label for="system-adminsitration-user-company">Company Name</label>
+						<input class="form-control btn-site" rows="1" type="text" id="system-adminsitration-user-company" data-lpignore="true"></input>
+						<label for="system-adminsitration-user-email">Email Address</label>
+						<input class="form-control btn-site" rows="1" type="email" id="system-adminsitration-user-email"></input>
+					</div>
+					<div class="row margin-20">
+						<label class="form-check-label" for="system-administration-system-administration">System Administration</label>
+						<input class="form-check-input" type="checkbox" value="" id="system-administration-system-administration">
+					</div>
+				</div>
+				<div class="col-lg-1 margin-20">
+					<div class="row">
+						<button class="btn btn-outline-info btn-block btn-sm" id="system-administration-insert-user" data-toggle="tooltip" title="Insert a new user record">Insert</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-outline-warning btn-block btn-sm" id="system-administration-clear" data-toggle="tooltip" title="Clear fields">Clear</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-outline-danger btn-block btn-sm" id="system-administration-delete-user" data-toggle="tooltip" title="Delete current user record">Delete</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-outline-success btn-block btn-sm" id="system-administration-save-user" data-toggle="tooltip" title="Save current user record">Save</button>
+					</div>
+					
+					<div class="row">
+						<button class="btn btn-danger btn-block btn-sm" id="system-administration-reset-password" data-toggle="tooltip" title="Reset user password">Reset Password</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% } else { %>
+		<title>Ray's NEC Toolkit: Unauthorized Access</title>
+	<% } %>
+</div>
+
+<%- include footer %>

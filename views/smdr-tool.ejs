@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<%- include navbar %>
+
+<% var searchString = `` %>
+<% var sortString = `` %>
+<% if(searchFrom){ %>
+	<% var searchString = `&from=` + searchFrom %>
+<% } else if(searchTo) { %>
+	<% var searchString = `&to=` + searchTo %>
+<% } else if(toOrFrom) { %>
+	<% var searchString = `&toOrFrom=` + toOrFrom %>
+<% } else if(fromDate && toDate) { %>
+	<% var searchString = `&fromDate=` + fromDate + `&toDate=` + toDate %>
+<% } else if(fromDate) { %>
+	<% var searchString = `&fromDate=` + fromDate %>
+<% } else if(toDate) { %>
+	<% var searchString = `&toDate=` + toDate %>
+<% } %>
+<% if(sortField && sort){ %>
+	<% var sortString = `&sortField=` + sortField + `&sort=` + sort %>
+<% } %>
+
+<script src="/smdr/js/smdr-tool.js"></script>
+<div class="container-fluid">
+	<title>Ray's NEC Toolkit: SMDR Tool</title>
+		<div class="row">	
+			<div class="col-sm wrapper-background margin-sides-35">
+				<div class="row site-primary">
+					<h1>SMDR Tool</h1>
+				</div>
+				<div class="row">	
+					<div class="col-10 col-offset-1">
+						<div class="row">	
+							<div class="col">
+								<h5>Search Results: <%= recordCount %> call records</h5>
+								<div class="input-group">
+								  <div class="input-group-prepend">
+									<select class="btn btn-site" id="search-select">
+										<option value="from">From</option>
+										<option value="to">To</option>
+										<option value="toOrFrom">To or From</option>
+										<option value="date">Date</option>
+									</select>
+								  </div>
+								  <input type="search" class="form-control btn btn-site" id="search-string">
+								  <div class="input-group-append">
+									<button class="btn btn-success" id="search-button">Search</button>
+								  </div>
+								</div>
+							</div>
+						</div>
+						<div id="tableDiv" class="table-responsive">
+							<table id="tableArea" class="table text-center">
+								<tr class="site-table-primary">
+									<td></td>
+									<td class="d-none d-md-table-cell">Call Type
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `RecordType` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `RecordType` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=RecordType&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=RecordType&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td>From
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `From` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `From` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=From&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=From&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td>To
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `To` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `To` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=To&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=To&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td class="d-none d-xl-table-cell">Route
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `Route` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `Route` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=Route&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=Route&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td class="d-none d-xl-table-cell">Trunk
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `Trunk` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `Trunk` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=Trunk&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=Trunk&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td class="d-none d-md-table-cell">Start Time
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `StartTime` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `StartTime` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=StartTime&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=StartTime&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+									<td class="d-none d-md-table-cell">End Time
+										<button class="btn dropdown-toggle" type="button" id="call-type-sort-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<% if(sortField == `EndTime` && sort == -1) { %>
+												<i class="fas fa-sort-up"></i>
+											<% } else if(sortField == `EndTime` && sort == 1) { %>
+												<i class="fas fa-sort-down"></i>
+											<% } else { %>
+												<i class="fas fa-sort"></i>
+											<% } %>
+										</button>
+										<div class="dropdown-menu" aria-labelledby="call-type-sort-button">
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=EndTime&sort=-1<%= searchString %>"><i class="fas fa-sort-up"></i></a>
+											<a class="dropdown-item" href="/smdr?limit=<%= limit %>&skip=<%= skip %>&sortField=EndTime&sort=1<%= searchString %>"><i class="fas fa-sort-down"></i></a>
+										</div>
+									</td>
+								</tr>
+								<% smdrDocuments.forEach( (smdrRecord) => { %>
+									<tr id="<%= smdrRecord[`_id`].substring(3, smdrRecord[`_id`].length) %>"></tr>
+										<td><a href="/smdr?id=<%= encodeURI(smdrRecord[`_id`]) %>"><i class="fas fa-info-circle"></i></a></td>
+										<td class="d-none d-md-table-cell"><%= smdrRecord.RecordType.split(` `)[0] %></td>
+										<% if(smdrRecord.RecordType.match(/incoming/i)) { %>
+											<% if(smdrRecord.CallingStationNumber.hasOwnProperty(`CallingPartyNumber`)) { %>
+												<td><%= smdrRecord.CallingStationNumber.CallingPartyNumber %></td>
+											<% } else if(smdrRecord.DialCode.hasOwnProperty(`DialCode`)) { %>
+												<td><%= smdrRecord.DialCode.DialCode %></td>
+											<% } %>
+											<% if(smdrRecord.CalledPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)) { %>
+												<td><%= smdrRecord.CalledPartyInformation.TelephoneNumber.LogicalNumber %></td>
+											<% } else if(smdrRecord.CalledPartyInformation.PhysicalNumber.hasOwnProperty(`CalledNumber`)) { %>
+												<td><%= smdrRecord.CalledPartyInformation.PhysicalNumber.CalledNumber %></td>
+											<% } %>
+											<% if(smdrRecord.IncomingTrunk.hasOwnProperty(`TrunkNumber`)) { %>
+												<% if(smdrRecord.IncomingTrunk.hasOwnProperty(`LogicalIncomingRouteNumber`)) { %>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.IncomingTrunk.LogicalIncomingRouteNumber %></td>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.IncomingTrunk.TrunkNumber %></td>
+												<% } else if(smdrRecord.IncomingTrunk.hasOwnProperty(`PhysicalIncomingRouteNumber`)){ %>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.IncomingTrunk.PhysicalIncomingRouteNumber %></td>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.IncomingTrunk.TrunkNumber %></td>
+												<% } %>
+											<% } else { %>
+												<td class="d-none d-xl-table-cell"></td>
+												<td class="d-none d-xl-table-cell"></td>
+											<% } %>	
+											<% if(smdrRecord.CallTime.Start.hasOwnProperty(`TimeStamp`)) { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.Start.TimeStamp.toLocaleTimeString() %></td>
+											<% } else { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.Month + `-` + smdrRecord.CallTime.Start.Day + `-` + smdrRecord.CallTime.Start.Year + ` ` + smdrRecord.CallTime.Start.Hour + `:` + smdrRecord.CallTime.Start.Minute + `:` + smdrRecord.CallTime.Start.Second %></td>
+											<% } %>				
+											<% if(smdrRecord.CallTime.End.hasOwnProperty(`TimeStamp`)){ %>	
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.End.TimeStamp.toLocaleTimeString()  %></td>
+											<% } else { %>	
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.Month + `-` + smdrRecord.CallTime.End.Day + `-` + smdrRecord.CallTime.End.Year + ` ` + smdrRecord.CallTime.End.Hour + `:` + smdrRecord.CallTime.End.Minute + `:` + smdrRecord.CallTime.End.Second%></td>
+											<% } %>	
+										<% } else if(smdrRecord.RecordType.match(/outgoing/i)){ %>
+											<% if(smdrRecord.CallingPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)){ %>
+												<td><%= smdrRecord.CallingPartyInformation.TelephoneNumber.LogicalNumber %></td>
+											<% } else if(smdrRecord.CallingPartyInformation.PhysicalNumber.hasOwnProperty(`CallingNumber`)){ %>
+												<td><%= smdrRecord.CallingPartyInformation.PhysicalNumber.CallingNumber %></td>
+											<% } else { %>
+												<td></td>
+											<% } %>
+											<% if(smdrRecord.DialCode.hasOwnProperty(`DialCode`)){ %>
+												<td><%= smdrRecord.DialCode.DialCode %></td>
+											<% } else { %>
+												<td></td>
+											<% } %>
+											<% if(smdrRecord.OutgoingTrunk.hasOwnProperty(`TrunkNumber`)) { %>
+												<% if(smdrRecord.OutgoingTrunk.hasOwnProperty(`LogicalOutgoingRouteNumber`)) { %>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.OutgoingTrunk.LogicalOutgoingRouteNumber %></td>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.OutgoingTrunk.TrunkNumber %></td>
+												<% } else if(smdrRecord.OutgoingTrunk.hasOwnProperty(`PhysicalOutgoingRouteNumber`)){ %>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.OutgoingTrunk.PhysicalOutgoingRouteNumber %></td>
+													<td class="d-none d-xl-table-cell"><%= smdrRecord.OutgoingTrunk.TrunkNumber %></td>
+												<% } %>
+											<% } else { %>
+												<td class="d-none d-xl-table-cell"></td>
+												<td class="d-none d-xl-table-cell"></td>
+											<% } %>	
+											<% if(smdrRecord.CallTime.Start.hasOwnProperty(`TimeStamp`)){ %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.Start.TimeStamp.toLocaleTimeString() %></td>
+											<% } else { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.Month + `-` + smdrRecord.CallTime.Start.Day + `-` + smdrRecord.CallTime.Start.Year + ` ` + smdrRecord.CallTime.Start.Hour + `:` + smdrRecord.CallTime.Start.Minute + `:` + smdrRecord.CallTime.Start.Second %></td>
+											<% } %>
+											<% if(smdrRecord.CallTime.End.hasOwnProperty(`TimeStamp`)){ %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.End.TimeStamp.toLocaleTimeString()  %></td>
+											<% } else { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.Month + `-` + smdrRecord.CallTime.End.Day + `-` + smdrRecord.CallTime.End.Year + ` ` + smdrRecord.CallTime.End.Hour + `:` + smdrRecord.CallTime.End.Minute + `:` + smdrRecord.CallTime.End.Second %></td>
+											<% } %>
+										<% } else if(smdrRecord.RecordType.match(/station/i)){ %>												
+											<% if(smdrRecord.CallingPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)){ %>
+												<td><%= smdrRecord.CallingPartyInformation.TelephoneNumber.LogicalNumber %></td>
+											<% } else if(smdrRecord.CallingPartyInformation.PhysicalNumber.hasOwnProperty(`CallingNumber`)){ %>
+												<td><%= smdrRecord.CallingPartyInformation.PhysicalNumber.CallingNumber %></td>
+											<% } %>
+											<% if(smdrRecord.CalledPartyInformation.TelephoneNumber.hasOwnProperty(`LogicalNumber`)) { %>
+												<td><%= smdrRecord.CalledPartyInformation.TelephoneNumber.LogicalNumber %></td>
+											<% } else if(smdrRecord.CalledPartyInformation.PhysicalNumber.hasOwnProperty(`CalledNumber`)) { %>
+												<td><%= smdrRecord.CalledPartyInformation.PhysicalNumber.CalledNumber %></td>
+											<% } %>				
+											<td class="d-none d-xl-table-cell"></td>
+											<td class="d-none d-xl-table-cell"></td>												
+											<% if(smdrRecord.CallTime.Start.hasOwnProperty(`TimeStamp`)){ %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.Start.TimeStamp.toLocaleTimeString() %></td>
+											<% } else { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.Start.Month + `-` + smdrRecord.CallTime.Start.Day + `-` + smdrRecord.CallTime.Start.Year + ` ` + smdrRecord.CallTime.Start.Hour + `:` + smdrRecord.CallTime.Start.Minute + `:` + smdrRecord.CallTime.Start.Second %></td>
+											<% } %>
+											<% if(smdrRecord.CallTime.End.hasOwnProperty(`TimeStamp`)){ %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.TimeStamp.toLocaleDateString() + ` ` + smdrRecord.CallTime.End.TimeStamp.toLocaleTimeString()  %></td>
+											<% } else { %>
+												<td class="d-none d-md-table-cell"><%= smdrRecord.CallTime.End.Month + `-` + smdrRecord.CallTime.End.Day + `-` + smdrRecord.CallTime.End.Year + ` ` + smdrRecord.CallTime.End.Hour + `:` + smdrRecord.CallTime.End.Minute + `:` + smdrRecord.CallTime.End.Second %></td>
+											<% } %>
+										<% } %>					
+								<% }) %>							
+							</table>
+							<ul class="pagination" id="smdr-pagination">					
+								<% if(currentPage-1 >= 1){ %>
+									<li class="page-item"><a class="page-link" id="first-page-button" href="/smdr?limit=<%= limit %>&skip=0<%= searchString %><%= sortString %>"><i class="fas fa-fast-backward"></i></a></li>
+								<% } else { %>
+									<li class="page-item disabled" disabled><a class="page-link" id="first-page-button" href="#"><i class="fas fa-fast-backward"></i></a></li>
+								<% } %>
+								<% if(currentPage-1 >= 1){ %>
+									<li class="page-item"><a class="page-link" id="step-back-button" href="/smdr?limit=<%= limit %>&skip=<%= (currentPage-2)*limit %><%= searchString %><%= sortString %>"><i class="fas fa-step-backward"></i></a></li>
+								<% } else { %>
+									<li class="page-item disabled" disabled><a class="page-link" id="step-back-button" href="#"><i class="fas fa-step-backward"></i></a></li>
+								<% } %>
+								<% if(currentPage-2 >= 1){ %>
+									<li class="page-item"><a class="page-link" id="page-<%= currentPage-2 %>-button" href="/smdr?limit=<%= limit %>&skip=<%= (currentPage-3)*limit %><%= searchString %><%= sortString %>"><%= currentPage-2 %></a></li>
+								<% } %>
+								<% if(currentPage-1 >= 1){ %>
+									<li class="page-item"><a class="page-link" id="page-<%= currentPage-1 %>-button" href="/smdr?limit=<%= limit %>&skip=<%= (currentPage-2)*limit %><%= searchString %><%= sortString %>"><%= currentPage-1 %></a></li>
+								<% } %>
+									<li class="page-item active"><a class="page-link" id="page-<%= currentPage %>-button" href="#"><%= currentPage %></a></li>
+								<% if(currentPage+1 <= pageCount){ %>
+									<li class="page-item"><a class="page-link" id="page-<%= currentPage+1 %>-button" href="/smdr?limit=<%= limit %>&skip=<%= currentPage*limit %><%= searchString %><%= sortString %>"><%= currentPage+1 %></a></li>
+								<% } %>
+								<% if(currentPage+2 <= pageCount){ %>
+									<li class="page-item"><a class="page-link" id="page-<%= currentPage+2 %>-button" href="/smdr?limit=<%= limit %>&skip=<%= (currentPage+1)*limit %><%= searchString %><%= sortString %>"><%= currentPage+2 %></a></li>
+								<% } %>
+								<% if(currentPage != pageCount){ %>
+									<li class="page-item"><a class="page-link" id="step-forward-button" href="/smdr?limit=<%= limit %>&skip=<%= currentPage*limit %><%= searchString %><%= sortString %>"><i class="fas fa-step-forward"></i></a></li>
+								<% } else { %>
+									<li class="page-item disabled" disabled><a class="page-link" id="step-forward-button" href="#"><i class="fas fa-step-forward"></i></a></li>
+								<% } %>
+								<% if(currentPage != pageCount){ %>
+									<li class="page-item"><a class="page-link" id="last-page-button" href="/smdr?limit=<%= limit %>&skip=<%= (pageCount-1)*limit %><%= searchString %><%= sortString %>"><i class="fas fa-fast-forward"></i></a></li>
+								<% } else { %>
+									<li class="page-item disabled" disabled><a class="page-link" id="last-page-button" href="#"><i class="fas fa-fast-forward"></i></a></li>
+								<% } %>
+							  </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+<%- include footer %>

@@ -1,0 +1,42 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<%- include navbar %>
+<script src="/authenticated-users/js/user-settings.js" siteUrl="<%= url %>"></script>
+<title>Ray's NEC Toolkit: Settings</title>
+
+<div class="container-fluid">
+	<div class="col-sm wrapper-background">
+		<div class="row site-primary"><h1>Settings</h1></div>
+			<div id="detailArea col-5-lg offset-3">
+					<div class="form-group padding-50">
+						<h3>User Account Settings</h3>					
+						<input class="form-control btn-site" rows="1" id="app-user-first-name" disabled data-lpignore="true"></input>
+						<label for="app-user-first-name">First Name</label> 
+						<input class="form-control btn-site" rows="1" id="app-user-last-name" disabled data-lpignore="true"></input>
+						<label for="app-user-last-name">Last Name</label>
+						<input class="form-control btn-site" rows="1" id="app-user-phone" disabled data-lpignore="true"></input>
+						<label for="app-user-phone">Phone Number</label>
+						<input class="form-control btn-site" rows="1" id="app-user-address" disabled data-lpignore="true"></input>
+						<label for="app-user-address">Address</label>
+						<input class="form-control btn-site" rows="1" id="app-user-company" disabled data-lpignore="true"></input>
+						<label for="app-user-company">Company Name</label>
+						<input class="form-control btn-site" rows="1" id="app-user-email" disabled data-lpignore="true"></input>
+						<label for="app-user-email">Email Address</label>
+						<!--input class="form-control" rows="1" id="app-user-verify-email"></input-->
+						<!--label for="app-user-verify-email">Verify Email Address</label-->
+					</div>
+					<div class="form-group padding-50">
+						<h3>Change Password</h3>
+						<input type="password" class="form-control password btn-site" rows="1" id="user-settings-user-password" data-toggle="tooltip" title="Enter current password"></input>
+						<label for="user-settings-user-password">Old Password</label>
+						<input type="password" class="form-control password btn-site" rows="1" id="user-settings-new-password" data-toggle="tooltip" title="Enter new password. Password must contain: Two lowercase characters, two uppercase characters, two special charaters, and be at least twelve characters in length."></input>
+						<label for="user-settings-new-password">New Password</label>
+						<input type="password" class="form-control password btn-site" rows="1" id="user-settings-verify-password" data-toggle="tooltip" title="Verify new password"></input>
+						<label for="user-settings-verify-password">Verify Password</label>
+						<button class="btn btn-primary btn-block" id="user-settings-change-password-button">Change Password</button>
+					</div>
+			</div>
+	</div>
+</div>
+
+<%- include footer %>
