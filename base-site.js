@@ -70,7 +70,7 @@ router.get(`/`, (req, res) => {
 			}
 		});		
 	} else {
-		res.render(`home`, { user: req.user || null, userPermissions: noPermissions });
+		res.render(`home`, { user: null, userPermissions: noPermissions });
 	}
 	
 });
