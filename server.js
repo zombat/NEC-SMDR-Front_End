@@ -23,7 +23,9 @@ const	express = require(`express`),
 		// Routes
 		sysAdminRoute = require(`./routes/system-administration`),
 		smdrAPIRoute = require(`./routes/smdr-api`),
-		baseSiteRoute = require(`./base-site`);
+		baseSiteRoute = require(`./base-site`),
+		{ body } = require('express-validator');
+
 
 if(process.env.MONGO_USER && process.env.MONGO_PASSWORD ){
 	var mongoURL = process.env.MONGO_URL.replace(/\<username\>/,process.env.MONGO_USER);
@@ -62,6 +64,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 ));
 
 app.use(`/public`, express.static(process.cwd() + `/public`));
+app.use(express.json());
 app.use(bodyParser.json( { limit: '125mb' }));
 app.use(bodyParser.urlencoded({extended: true})); 
 app.set(`views`, __dirname + `/views`);
@@ -87,7 +90,7 @@ passport.deserializeUser(Account.deserializeUser());
 
 
 
-app.post(`/login`, helperFunctions.lowercaseUsername, helperFunctions.logAccess, passport.authenticate(`local`, { 
+app.post(`/login`, body('username').isEmail().normalizeEmail(), helperFunctions.logAccess, passport.authenticate(`local`, { 
 	successReturnToOrRedirect: `/`,	  
 	failureRedirect: `/login`
 	}), (req, res) => {

@@ -18,7 +18,9 @@ router.get(`/js/:id`, (req, res) => {
 		let userID = req.user[`_id`] || 0;
 		helperFunctions.getUserPermissions(userID, function(response){
 			if(response!=null){
-				if(response.smdrTool){
+				// This permission cannot currently be assigned... Oops
+				// if(response.smdrTool){
+				if(true == true){
 					res.sendFile( `/private/smdr-tool/js/` + req.params.id, { root: `./` });	
 				} else {
 					res.status(401);

@@ -42,7 +42,8 @@ $(document).ready(function() {
 					'phoneNumber': $(`#system-adminsitration-user-phone`).val(),
 					'address': $(`#system-adminsitration-user-address`).val(),
 					'companyName': $(`#system-adminsitration-user-company`).val(),
-					'systemAdministration': $(`#system-administration-system-administration`).is(`:checked`)
+					'systemAdministration': $(`#system-administration-system-administration`).is(`:checked`),
+                                        'smdrTool': $(`#system-administration-smdr-tool`).is(`:checked`)
 				};
 				systemAdministration(`save-user`, $(`#system-adminsitration-user-list`).val(), userObject, function(result){
 					refreshUserList();
@@ -78,6 +79,8 @@ $(document).ready(function() {
 			$(`#system-adminsitration-user-company`).val(result.data.company);
 			$(`#system-adminsitration-user-email`).val(result.data.username);
 			$(`#system-administration-system-administration`).prop(`checked`, result.data.sysAdmin);
+			$(`#system-administration-smdr-tool`).prop(`checked`, result.data.sysAdmin);
+
 		});
 	});
 	
@@ -95,6 +98,7 @@ function clearFields(){
 	$(`#system-adminsitration-user-company`).val(``);
 	$(`#system-adminsitration-user-email`).val(``);
 	$(`#system-administration-system-administration`).prop(`checked`, false);
+        $(`#system-administration-smdr-tool`).prop(`checked`, false);
 }
 
 

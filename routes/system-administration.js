@@ -75,7 +75,7 @@ router.post(`/api`, (req, res) => {
 					} else if(req.body.requestType.match(/save-user/i)){
 						mongoClient.get().db(process.env.MONGO_AUTH_DATABASE).collection(`accounts`).updateOne( { '_id': require(`mongodb`).ObjectID(req.body.userID) }, { $set: { 'firstname': req.body.data.firstName, 'lastname': req.body.data.lastName, 'phonenumber': req.body.data.phoneNumber, 'address': req.body.data.address, 'company': req.body.data.companyName } }, function(err, response){
 							assert.equal(null, err);
-							mongoClient.get().db(process.env.MONGO_AUTH_DATABASE).collection(`permissions`).updateOne( { '_id': require(`mongodb`).ObjectID(req.body.userID) }, { $set: { 'sysadmin': req.body.data.systemAdministration } }, function(err, finalResponse){
+							mongoClient.get().db(process.env.MONGO_AUTH_DATABASE).collection(`permissions`).updateOne( { '_id': require(`mongodb`).ObjectID(req.body.userID) }, { $set: { 'sysadmin': req.body.data.systemAdministration, 'smdrTool': req.body.data.smdrTool  } }, function(err, finalResponse){
 								assert.equal(null, err);
 								res.json(finalResponse);
 							});

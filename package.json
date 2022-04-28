@@ -25,6 +25,7 @@
     "ejs": ">=2.7.4",
     "express": ">=4.17.1",
     "express-session": ">=1.17.0",
+    "express-validator": "^6.14.0",
     "mongodb": ">=3.5.2",
     "mongoose": ">=5.8.10",
     "morgan": ">=1.9.1",
@@ -36,6 +37,5 @@
   "scripts": {
     "start": "node server.js"
   },
-  "main": "server.js",
-  "devDependencies": {}
+  "main": "server.js"
 }
