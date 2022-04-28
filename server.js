@@ -1,5 +1,5 @@
 debugger;
-require(`dotenv`).load();
+require(`dotenv`).config();
 const	express = require(`express`),
 		session  = require(`express-session`),
 		mongo = require(`mongodb`).MongoClient,
@@ -31,7 +31,7 @@ if(process.env.MONGO_USER && process.env.MONGO_PASSWORD ){
 } else {
 	var mongoURL = process.env.MONGO_URL;
 }
-mongoose.connect(mongoURL, { useCreateIndex: true, useUnifiedTopology: true, useNewUrlParser: true, dbName: process.env.MONGO_AUTH_DATABASE});
+mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true, dbName: process.env.MONGO_AUTH_DATABASE});
 
 
 var store = new expressMongoDBStore({
