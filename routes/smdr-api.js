@@ -44,7 +44,9 @@ router.get(`/`, function(req, res){
 			if(response!=null){
 				if(1 == 1){
 					if(req.query.id){
-						mongoClient.get().db(process.env.MONGO_SMDR_DATABASE).collection(process.env.MONGO_SMDR_COLLECTION).findOne( { '_id' : req.query.id }, (err, smdrDocument) => {
+						// Sanitize the input
+						let id = req.query.id.replace(/[^a-zA-Z0-9!\x02\x03]/g, ``);
+						mongoClient.get().db(process.env.MONGO_SMDR_DATABASE).collection(process.env.MONGO_SMDR_COLLECTION).findOne( { '_id' : id }, (err, smdrDocument) => {
 							assert.equal(null, err);
 							res.render(`smdr-info`, { user: userID, userPermissions: response, smdrDocument: smdrDocument });
 							});	
