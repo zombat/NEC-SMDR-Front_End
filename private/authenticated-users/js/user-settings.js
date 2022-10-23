@@ -32,7 +32,8 @@ $( document ).ready(function() {
 	});
 	
 	$(`#user-settings-new-password`).on(`keyup`, function(){
-		if($(`#user-settings-new-password`).val().length < 12 && $(`#user-settings-new-password`).val().match(/^(?:[0-9A-Za-z]+|([._%+-])(?!\1))+$/)){
+		var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+		if($(`#user-settings-new-password`).val().match(regex)){
 			if(!$(`#user-settings-new-password`).hasClass(`bg-danger`)){
 				$(`#user-settings-new-password`).addClass(`bg-danger text-white`);
 				$(`#user-settings-new-password`).removeClass(`bg-success`);
