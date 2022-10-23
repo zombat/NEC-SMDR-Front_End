@@ -73,9 +73,9 @@ app.use(require(`morgan`)(`combined`));
 app.use(require(`cookie-parser`)());
 app.use(require(`body-parser`).urlencoded({ extended: true }));
 if(process.env.SECURE_SERVER == true){
-	app.use(require(`express-session`)({ secret: secret, resave: true, rolling: true, saveUninitialized: false, cookie: { _expires: 900000, secure: true, httpOnly: false }, store: store}));
+	app.use(require(`express-session`)({ secret: secret, resave: true, rolling: true, saveUninitialized: false, cookie: { _expires: 900000, secure: true, httpOnly: true }, store: store}));
 } else {
-	app.use(require(`express-session`)({ secret: secret, resave: true, saveUninitialized: true, store: store}));
+	app.use(require(`express-session`)({ secret: secret, resave: true, saveUninitialized: true, store: store, cookie: { _expires: 900000, httpOnly: true }}));
 }
 
 app.use(passport.initialize());
